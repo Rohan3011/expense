@@ -1,0 +1,8 @@
+-primary
+    - income card
+    - expence card
+    - saving card
+    - investment card
+- secondary
+    - graph card (income vs expence)
+    - pie chart card (spending distribution)
