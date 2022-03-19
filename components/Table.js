@@ -1,44 +1,110 @@
 import React from 'react'
+import PageSubHeader from './PageSubHeader'
 
-const Table = () => {
+const Table = ({ title }) => {
+
+
+    const data = [
+        {
+            Header: "title",
+            Date: "1-2-22",
+            Amount: "3000",
+            Source: "hidden",
+            Type: "money",
+            Note: "no coins"
+        },
+        {
+            Header: "title",
+            Date: "1-2-22",
+            Amount: "3000",
+            Source: "hidden",
+            Type: "money",
+            Note: "no coins"
+        },
+        {
+            header: "header",
+            date: "1-2-22",
+            amount: "3000",
+            source: "hidden",
+            type: "money",
+            note: "no coins"
+        },
+    ]
+
     return (
-        <div className='p-4 m-4 shadow'>
-            <div className="flex-auto">
-                <div className="overflow-x-auto">
-                    <table className="table table-zebra w-full">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Name</th>
-                                <th>Job</th>
-                                <th>Favorite Color</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th>1</th>
-                                <td>Cy Ganderton</td>
-                                <td>Quality Control Specialist</td>
-                                <td>Blue</td>
-                            </tr>
-                            <tr>
-                                <th>2</th>
-                                <td>Hart Hagerty</td>
-                                <td>Desktop Support Technician</td>
-                                <td>Purple</td>
-                            </tr>
-                            <tr>
-                                <th>3</th>
-                                <td>Brice Swyre</td>
-                                <td>Tax Accountant</td>
-                                <td>Red</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+        <div className='overflow-x-auto grow p-4'>
+            <PageSubHeader title={title} />
+            <div className="">
+                <table className="table-auto border border-collapse rounded-none w-full">
+                    <TableHeader props={data[0]} />
+                    <tbody className="transform animate-none">
+                        {
+                            data.map((val, idx) => {
+                                return <TableRow
+                                    key={idx}
+                                    header={val.header}
+                                    date={val.date}
+                                    amount={val.amount}
+                                    source={val.source}
+                                    type={val.type}
+                                    note={val?.note}
+                                />
+                            })
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
     )
 }
 
 export default Table;
+
+
+
+const TableHeader = ({ props }) => {
+    return (
+        <thead className='bg-stone-50 text-slate-500 text-lg font-semibold'>
+            <tr>{
+                Object.entries(props).map((value, key) => {
+                    return (
+                        <td className='border' key={key}>
+                            <span
+                                className='input-cell'
+                                type="text">
+                                {value[0]}
+                            </span>
+                        </td>
+                    )
+                })
+            }
+            </tr>
+        </thead>
+    )
+}
+
+const TableRow = (props) => {
+    return (
+        <tr className="">
+            {
+                Object.entries(props).map((val, key) => {
+                    return <TableColumn key={key} value={val} />
+                })
+            }
+        </tr>
+    );
+}
+
+const TableColumn = ({ value }) => {
+    const handleIt = (val) => {
+        (e) => console.log(val);
+    }
+    return (
+        <td className='border'>
+            <input
+                onChange={handleIt}
+                className='input-cell text-slate-700'
+                type="text" value={value[1]} />
+        </td>
+    );
+}

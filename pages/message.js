@@ -1,8 +1,6 @@
 import Head from 'next/head'
 import Body from '../components/Body'
-import CardList from '../components/CardList'
-import Dashboard from '../components/Dashboard'
-import Table from '../components/Table'
+import WorkingOnIt from '../components/WorkingOnIt'
 
 export default function Home() {
     return (
@@ -13,9 +11,7 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Body >
-                <CardList />
-                <Dashboard />
-                <Table title={"Recent Transactions"} />
+                <WorkingOnIt />
             </Body>
         </div>
     )
