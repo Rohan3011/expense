@@ -6,54 +6,35 @@ const Table = ({ title }) => {
 
     const data = [
         {
-            Header: "title",
-            Date: "1-2-22",
-            Amount: "3000",
-            Source: "hidden",
-            Type: "money",
-            Note: "no coins"
-        },
-        {
-            Header: "title",
-            Date: "1-2-22",
-            Amount: "3000",
-            Source: "hidden",
-            Type: "money",
-            Note: "no coins"
-        },
-        {
             header: "header",
             date: "1-2-22",
             amount: "3000",
             source: "hidden",
-            type: "money",
-            note: "no coins"
+            type: "cash",
+            "note": "no card"
         },
     ]
-
     return (
-        <div className='overflow-x-auto grow p-4'>
+        <div className='p-4' >
             <PageSubHeader title={title} />
-            <div className="">
-                <table className="table-auto border border-collapse rounded-none w-full">
-                    <TableHeader props={data[0]} />
-                    <tbody className="transform animate-none">
-                        {
-                            data.map((val, idx) => {
-                                return <TableRow
-                                    key={idx}
-                                    header={val.header}
-                                    date={val.date}
-                                    amount={val.amount}
-                                    source={val.source}
-                                    type={val.type}
-                                    note={val?.note}
-                                />
-                            })
-                        }
-                    </tbody>
-                </table>
-            </div>
+            <table className="w-full bg-white">
+                <TableHeader props={data[0]} />
+                <tbody className="transform animate-none">
+                    {
+                        data.map((val, idx) => {
+                            return <TableRow
+                                key={idx}
+                                header={val.header}
+                                date={val.date}
+                                amount={val.amount}
+                                source={val.source}
+                                type={val.type}
+                                note={val?.note}
+                            />
+                        })
+                    }
+                </tbody>
+            </table>
         </div>
     )
 }
@@ -64,13 +45,13 @@ export default Table;
 
 const TableHeader = ({ props }) => {
     return (
-        <thead className='bg-stone-50 text-slate-500 text-lg font-semibold'>
-            <tr>{
+        <thead className='bg-stone-50 text-slate-500 font-medium'>
+            <tr className=''>{
                 Object.entries(props).map((value, key) => {
                     return (
-                        <td className='border' key={key}>
+                        <td className='p-1 w-fit border' key={key}>
                             <span
-                                className='input-cell'
+                                className=''
                                 type="text">
                                 {value[0]}
                             </span>
@@ -84,8 +65,9 @@ const TableHeader = ({ props }) => {
 }
 
 const TableRow = (props) => {
+    console.log(props)
     return (
-        <tr className="">
+        <tr className="w-full">
             {
                 Object.entries(props).map((val, key) => {
                     return <TableColumn key={key} value={val} />
@@ -96,14 +78,15 @@ const TableRow = (props) => {
 }
 
 const TableColumn = ({ value }) => {
+
     const handleIt = (val) => {
         (e) => console.log(val);
     }
     return (
-        <td className='border'>
+        <td className='border rounded whitespace-nowrap tracking-wider'>
             <input
                 onChange={handleIt}
-                className='input-cell text-slate-700'
+                className='input-cell w-full text-slate-700'
                 type="text" value={value[1]} />
         </td>
     );

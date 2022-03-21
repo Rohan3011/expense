@@ -4,7 +4,7 @@ Chart.register(ArcElement);
 
 const PieChart = () => {
     return (
-        <div className='max-w-3xl shadow rounded-lg flex flex-col gap-2'>
+        <div className='max-w-3xl bg-white shadow-md rounded-lg flex flex-col gap-2'>
             <Doughnut
                 className='p-8'
                 data={{

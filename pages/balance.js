@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Body from '../components/Body'
 import WorkingOnIt from '../components/WorkingOnIt'
+import PageTitle from '../components/PageTitle'
 
 export default function Home() {
     return (
@@ -11,6 +12,7 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Body >
+                <PageTitle title={"Balance"} link={"/balance"} />
                 <WorkingOnIt />
             </Body>
         </div>

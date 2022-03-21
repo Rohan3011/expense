@@ -1,28 +1,15 @@
 import React, { useState } from 'react'
 import { AiOutlinePlus } from 'react-icons/ai';
 
-const InputCardBody = () => {
+const InputCardBody = ({ amount, handleIt }) => {
     {
-        const [income, setIncome] = useState("");
-
-        const handleSubmit = (e) => {
-            e.preventDefault();
-            console.log("submit");
-            setIncome("");
-        }
-        const handleIt = (e) => {
-            setIncome(e.target.value);
-        }
-
         return (
-            <form onSubmit={handleSubmit}
-                className="grow flex flex-col space-y-4">
-                <InputAmount amount={income} handleChange={handleIt} />
+            <div className="grow flex flex-col space-y-4">
+                <InputAmount amount={amount} handleChange={handleIt} />
                 <InputIncomeSource />
                 <InputIncomeType />
                 <InputCardNote />
-                <InputSubmitButton handleSubmit={handleSubmit} />
-            </form>
+            </div>
         )
     }
 }
@@ -36,6 +23,7 @@ const InputAmount = ({ amount, handleChange }) => {
             <input type={'number'}
                 onChange={handleChange}
                 value={amount}
+                readOnly
                 placeholder={"add income"}
                 className="card-animation grow focus:shadow-lg outline-none p-2 rounded text-xl text-slate-700 font-semibold" />
             <InputDate />
@@ -86,28 +74,9 @@ const InputDate = () => {
     )
 }
 
-const InputSubmitButton = ({ handleSubmit }) => {
-    return (
-        <section className='grow flex space-x-2 pt-2 justify-end'>
-            <button
-                className='border border-white hover:border-slate-500 px-6 py-1 rounded text-slate-500'
-                onSubmit={handleSubmit} >
-                Discard
-            </button>
-            <button
-                className='bg-slate-500 hover:bg-slate-400 px-8 py-2 rounded text-white'
-                onSubmit={handleSubmit} >
-                Add
-            </button>
-        </section>
-    )
-
-}
-
-
 const InputCardNote = () => {
     return (
-        <div className='px-2 flex border-b'>
+        <div className='mx-4 flex border-b'>
             <textarea
                 className="card-animation grow hover:border focus:shadow-lg outline-none p-2 rounded text-xl text-slate-700 font-semibold"
                 placeholder='note'

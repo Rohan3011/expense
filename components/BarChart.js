@@ -6,7 +6,7 @@ Chart.register(CategoryScale)
 
 const BarChart = () => {
     return (
-        <div className='max-h-[360px] m-4 p-4 grow shadow rounded'>
+        <div className='max-h-[360px] m-4 p-4 grow bg-white shadow-md rounded'>
             < Bar
                 className=''
                 data={{

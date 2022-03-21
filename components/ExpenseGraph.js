@@ -3,7 +3,7 @@ import { Line } from 'react-chartjs-2';
 
 const ExpenseGraph = () => {
     return (
-        <div className='grow w-full max-h-[360px] shadow rounded-lg'>
+        <div className='grow w-full max-h-[360px] shadow-md bg-white rounded-lg'>
             <Line
                 className='p-8'
                 data={{

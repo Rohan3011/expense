@@ -1,9 +1,11 @@
 import Link from 'next/link'
 
 import {
+    HiOutlineUser,
+    HiOutlineLogout,
     HiOutlineCash,
     HiOutlineChartBar,
-    HiOutlineMail,
+    HiOutlineScale,
     HiTrendingUp,
     HiUser,
     HiOutlineCog
@@ -14,8 +16,8 @@ import { MdOutlineSpaceDashboard } from 'react-icons/md';
 
 const Sidebar = () => {
     return (
-        <div className='lg:w-60 h-full flex flex-col'>
-            <SidebarHeader />
+        <div className='hidden lg:w-60 h-full lg:flex flex-col'>
+            <SidebarHeader userName={"rohanop"} />
             <SidebarLinks />
             {/* <SidebarRecentFollow /> */}
         </div>
@@ -24,10 +26,16 @@ const Sidebar = () => {
 
 export default Sidebar;
 
-const SidebarHeader = () => {
+const SidebarHeader = ({ userName }) => {
     return (
-        <div className='flex h-16 justify-center items-center border-b'>
-            <span>UserName</span>
+        <div className='group flex h-16 px-4 items-center gap-2 border-b'>
+            <div className='p-2 rounded-full bg-gray-300'>
+                <HiUser className='text-xl text-slate-500' />
+            </div>
+            <span className="text-xl font-semibold text-slate-600">{userName}</span>
+            <div className='hidden group-hover:inline ml-auto p-2 rounded hover-animation'>
+                <HiOutlineLogout className='text-xl text-slate-700' />
+            </div>
         </div>
     );
 }
@@ -52,15 +60,17 @@ const SidebarLinks = () => {
                 link="/expense"
             />
             <SidebarLink
+                title="Balance"
+                icon={<HiOutlineScale />}
+                link="/balance"
+            />
+
+            <SidebarLink
                 title="Invest"
                 icon={<HiOutlineChartBar />}
                 link="/invest"
             />
-            <SidebarLink
-                title="Messages"
-                icon={<HiOutlineMail />}
-                link="/message"
-            />
+
             <SidebarLink
                 title="Settings"
                 icon={<HiOutlineCog />}

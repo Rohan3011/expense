@@ -1,7 +1,7 @@
 import React from 'react'
 import Card from './Card';
-import { MdOutlineAccountBalanceWallet } from 'react-icons/md';
 import {
+    HiOutlineScale,
     HiTrendingUp,
     HiOutlineCash,
     HiOutlineChartBar,
@@ -16,8 +16,8 @@ const CardList = () => {
                 value={"2"}
                 amount={"$30k"}
                 color={"fuchsia"}
-                icon={<MdOutlineAccountBalanceWallet />}
-                link={"/main"}
+                icon={<HiOutlineScale />}
+                link={"/balance"}
                 increase={1}
             />
             <Card
