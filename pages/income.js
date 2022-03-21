@@ -4,7 +4,6 @@ import Body from '../components/Body'
 import PageTitle from '../components/PageTitle'
 import Table from '../components/Table'
 import BarChart from '../components/BarChart'
-import TopThreeCard from '../components/InputCard/TopThreeCard'
 
 
 export default function Home() {

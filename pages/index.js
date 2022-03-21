@@ -1,6 +1,5 @@
 import Head from 'next/head';
-import Navbar from '../components/index_page/Navbar'
-import IndexBody from '../components/index_page/IndexBody'
+import { Navbar, IndexBody } from '../components/IndexPage'
 
 function Home() {
   return (
