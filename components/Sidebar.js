@@ -1,22 +1,24 @@
-import Link from 'next/link'
-
+import Link from 'next/link';
 import {
-    HiOutlineUser,
-    HiOutlineLogout,
     HiOutlineCash,
     HiOutlineChartBar,
     HiOutlineScale,
     HiTrendingUp,
     HiUser,
-    HiOutlineCog
+    HiOutlineCog,
+    HiChevronDoubleLeft,
+    HiX
 } from 'react-icons/hi';
 import { MdOutlineSpaceDashboard } from 'react-icons/md';
+import { useRecoilState } from 'recoil';
+import { sidebarState } from '../atoms/SidebarAtom';
 
 
 
 const Sidebar = () => {
+    const styleSidebar = `w-60 h-full lg:flex flex-col`;
     return (
-        <div className='hidden lg:w-60 h-full lg:flex flex-col'>
+        <div className={styleSidebar}>
             <SidebarHeader userName={"rohanop"} />
             <SidebarLinks />
             {/* <SidebarRecentFollow /> */}
@@ -27,14 +29,19 @@ const Sidebar = () => {
 export default Sidebar;
 
 const SidebarHeader = ({ userName }) => {
+    const [sidebar, setSidebar] = useRecoilState(sidebarState);
+
+    const toggleSidebar = () => {
+        setSidebar(!sidebar);
+    };
     return (
         <div className='group flex h-16 px-4 items-center gap-2 border-b'>
             <div className='p-2 rounded-full bg-gray-300'>
                 <HiUser className='text-xl text-slate-500' />
             </div>
             <span className="text-xl font-semibold text-slate-600">{userName}</span>
-            <div className='hidden group-hover:inline ml-auto p-2 rounded hover-animation'>
-                <HiOutlineLogout className='text-xl text-slate-700' />
+            <div className='lg:hidden group-hover:inline ml-auto p-2 rounded hover-animation' onClick={toggleSidebar} >
+                <HiChevronDoubleLeft className='text-xl text-slate-700' />
             </div>
         </div>
     );
@@ -84,7 +91,7 @@ const SidebarLink = ({ title, icon, link }) => {
         <Link passHref href={link}>
             <div className='group p-2 flex items-center hover-animation'>
                 <i className='icons-main px-4'>{icon}</i>
-                <span className='hidden lg:inline font-semibold text-slate-700'>{title}</span>
+                <span className='font-medium text-slate-700'>{title}</span>
             </div>
         </Link>
     );

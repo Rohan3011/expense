@@ -1,12 +1,15 @@
 import Link from 'next/link'
-
+import { HiOutlineArrowNarrowRight } from 'react-icons/hi'
 
 const Home = () => {
     return (
-        <div id="home" className='h-[calc(100vh-2rem)] flex p-8'>
-            <InfoText />
-            <InfoImages />
-        </div>
+        <>
+            <div id="home" className='flex flex-col p-8 md:px-[100px] h-screen w-full '>
+                <InfoText />
+                <InfoImages />
+            </div>
+            <Extra />
+        </>
     )
 }
 
@@ -16,8 +19,12 @@ export default Home;
 
 const InfoText = () => {
     return (
-        <div className="max-w-xl flex  flex-col pt-40  gap-4 p-4 ">
-            <h1 className="text-6xl font-semibold text-slate-700 leading-normal">Shady Line And Some Big Claims</h1>
+        <div className="flex flex-col items-center justify-center pt-32 pb-20  gap-4">
+            <h1 className="text-xl md:text-6xl text-center font-extrabold text-slate-800 leading-snug md:leading-tight">Your financial transactions in Notion,
+                <span className='text-blue-700'>synced automatically.</span> </h1>
+            <h4 className='text-slate-500  text-lg md:text-xl'>
+                Keep track of where your money is going, organize your expenses, and see everything in one place.
+            </h4>
             <InfoTextActions />
         </div>
     )
@@ -26,9 +33,9 @@ const InfoText = () => {
 
 const InfoImages = () => {
     return (
-        <div className='grow flex items-center justify-center'>
-            <div className="max-w-[500px] max-h-[500px] mockup-window border bg-base-300">
-                <div className="flex justify-center p bg-base-200">Hello!</div>
+        <div className='grow flex items-center justify-center overflow-x-auto sm:overflow-visible'>
+            <div className="w-full m-4 h-[630px]  mockup-window border bg-base-300">
+                <div className="flex justify-center bg-base-200">Hello!</div>
             </div>
         </div>
     )
@@ -38,15 +45,22 @@ const InfoImages = () => {
 
 const InfoTextActions = () => {
     return (
-        <div className="flex gap-2">
-            <Link passHref href="/">
-                <button className="text-slate-700 font-semibold px-4 py-2 rounded-lg hover:bg-gray-200 ">Login</button>
+        <div className="w-full flex justify-center p-2">
+            <Link passHref href="/main">
+                <button className="grow group flex items-center justify-center gap-4 text-slate-100 bg-blue-700  font-semibold p-2 max-w-[250px] rounded-lg hover:bg-blue-600 ">check it out
+                    <span className='text-xl group-hover:translate-x-1.5'>
+                        <HiOutlineArrowNarrowRight />
+                    </span>
+                </button>
             </Link>
-            <Link passHref href="/">
-                <button className="px-4 py-2 rounded-lg bg-slate-600 font-semibold 
-       hover:bg-gray-500 text-slate-100">
-                    Signup</button>
-            </Link>
+        </div>
+    )
+}
+
+const Extra = () => {
+    return (
+        <div className='hidden md:block min-h-[500px] bg-slate-700'>
+
         </div>
     )
 }

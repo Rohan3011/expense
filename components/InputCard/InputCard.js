@@ -15,7 +15,7 @@ const InputCard = ({ title }) => {
         setAmount(e.target.value);
     }
     return (
-        <div className='p-4 flex flex-col m-4 max-w-2xl shadow-md rounded gap-2'>
+        <div className='p-4 flex flex-col m-4 max-w-2xl shadow-md rounded gap-2 '>
             <form onSubmit={handleSubmit}>
                 <InputCardHeader title={title} />
                 <InputCardBody handleSubmit={handleSubmit} handleChange={handleIt} amount={amount} />

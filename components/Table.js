@@ -11,7 +11,7 @@ const Table = ({ title }) => {
             amount: "3000",
             source: "hidden",
             type: "cash",
-            "note": "no card"
+            "Description": "no card"
         },
     ]
     return (
@@ -65,7 +65,6 @@ const TableHeader = ({ props }) => {
 }
 
 const TableRow = (props) => {
-    console.log(props)
     return (
         <tr className="w-full">
             {

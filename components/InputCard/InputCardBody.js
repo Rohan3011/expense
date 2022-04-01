@@ -6,7 +6,8 @@ const InputCardBody = ({ amount, handleIt }) => {
         return (
             <div className="grow flex flex-col space-y-4">
                 <InputAmount amount={amount} handleChange={handleIt} />
-                <InputIncomeSource />
+                {/* <InputIncomeSource /> */}
+                <Dropdown />
                 <InputIncomeType />
                 <InputCardNote />
             </div>
@@ -78,7 +79,7 @@ const InputCardNote = () => {
     return (
         <div className='mx-4 flex border-b'>
             <textarea
-                className="card-animation grow hover:border focus:shadow-lg outline-none p-2 rounded text-xl text-slate-700 font-semibold"
+                className="card-animation grow hover:border focus:shadow-lg outline-none p-2 rounded text-xl text-slate-700 font-medium"
                 placeholder='note'
             />
         </div>
@@ -105,6 +106,18 @@ const NewButton = () => {
             <AiOutlinePlus className='text-lg' />
             <span>New</span>
         </button>
+    )
+}
+
+const Dropdown = () => {
+    return (
+        <div className="dropdown group text-slate-500">
+            <label tabIndex="1" className="m-1">{"Income Sources"}</label>
+            <ul tabIndex="0" className="dropdown-content menu p-2 shadow-md border bg-base-100 rounded-lg w-72 divide-y">
+                <li className='p-1'>Item 1</li>
+                <li className='p-1'>Item 2  </li>
+            </ul>
+        </div>
     )
 }
 
