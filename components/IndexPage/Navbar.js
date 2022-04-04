@@ -49,7 +49,7 @@ const NavbarActions = () => {
       <Link passHref href="/">
         <button className="text-lg text-slate-800 px-6 py-2 rounded-lg hover:bg-gray-200 hover:text-slate-700 ">Login</button>
       </Link>
-      <Link passHref href="/">
+      <Link passHref href="/signup">
         <button className="text-lg px-6 py-2 rounded-lg bg-blue-700
      hover:bg-blue-600 text-slate-100 hover:text-slate-50">
           Signup</button>

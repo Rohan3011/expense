@@ -11,6 +11,9 @@
     html {
       @apply font-roboto;
     }
+    input{
+      @apply outline-none;
+    }
   }
 
 @layer components{
@@ -21,7 +24,7 @@
     @apply text-xl text-slate-700;
   }
   .input-cell{
-    @apply border p-1 transform transition duration-500 border-white focus:border-gray-300 focus:scale-100 focus:z-10  focus-within:shadow-lg rounded    outline-none overflow-x-auto ;
+    @apply border p-1 transform transition duration-500 border-white focus:border-gray-300 focus:scale-100 focus:z-10  focus-within:shadow-lg rounded overflow-x-auto ;
   }
   .card-animation{
     @apply transform transition duration-500 hover:scale-110 hover:shadow-lg ;
