@@ -1,37 +1,36 @@
-import React, { useEffect } from 'react'
-import { useRecoilState } from 'recoil';
-import { sidebarState } from '../atoms/SidebarAtom';
-import Header from './Header';
-import Sidebar from './Sidebar';
+import React, { useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { sidebarState } from "../atoms/SidebarAtom";
+import useWindowSize from "../hooks/WindowSize";
+import Header from "./Header";
+import Sidebar from "./Sidebar";
 
 const Body = ({ children }) => {
+  const [sidebar, setSidebar] = useRecoilState(sidebarState);
+  const { isMobile } = useWindowSize();
 
-    const [sidebar, setSidebar] = useRecoilState(sidebarState);
+  useEffect(() => setSidebar(!isMobile), [isMobile]);
 
-    useEffect(() => {
-        if (window.screen.availWidth >= 1024)
-            setSidebar(true);
-        else
-            setSidebar(false);
-    }, []);
-
-
-    const styleSidebar = `bg-stone-100 h-full fixed z-50 ${sidebar ? 'left-0 lg:relative' : '-left-full'} transition  ease-out delay-1000`;
-    const styleMain = `grow flex flex-col`;
-    return (
-        <div className='flex h-screen overflow-auto'>
-            <aside className={styleSidebar}>
-                <Sidebar />
-            </aside>
-            <main className={styleMain}>
-                <Header />
-                <section className='md:px-8 w-full h-full overflow-auto'>
-                    {children}
-                    <div className='h-20'></div>
-                </section>
-            </main>
+  return (
+    <div className="">
+      {sidebar ? (
+        <div className="flex w-full">
+          <aside className="bg-stone-100 min-h-screen z-50 fixed lg:relative transition  ease-out duration-700">
+            <Sidebar />
+          </aside>
+          <main className="grow flex flex-col px-1 md:px-4">
+            <Header />
+            {children}
+          </main>
         </div>
-    )
-}
+      ) : (
+        <main className="grow flex flex-col px-1 md:px-8 lg:px-14">
+          <Header />
+          {children}
+        </main>
+      )}
+    </div>
+  );
+};
 
 export default Body;
