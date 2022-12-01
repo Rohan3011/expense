@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import { InputField } from "./shared/form";
 import SignupImage from "../public/images/signup.jpg";
+import { SubmitButton } from "./shared/buttons";
 
 const schema = Yup.object().shape({
   name: Yup.string().required().min(2, "name should be min 2 chars"),
@@ -121,12 +122,7 @@ const SignupForm = () => {
 const SignupAction = ({ onSubmit }) => {
   return (
     <section className="w-full flex justify-center pt-3">
-      <button
-        type="submit"
-        className="grow bg-blue-700 text-white px-10 py-2 rounded cursor-pointer hover:bg-blue-600 active:scale-95 duration-150"
-      >
-        Signup
-      </button>
+      <SubmitButton label="Login" />
     </section>
   );
 };

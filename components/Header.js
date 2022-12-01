@@ -5,14 +5,12 @@ import { useRecoilState } from "recoil";
 import { sidebarState } from "../atoms/SidebarAtom";
 
 const Header = () => {
-  const [showSearchBar, setShowSearchBar] = useState(false);
-  const toggleSearchBar = () => setShowSearchBar(!showSearchBar);
   return (
     <div>
-      <div className="navbar bg-base-100 rounded">
+      <div className="navbar bg-base-100 rounded h-14 flex">
         <HeaderRight />
-        <HeaderCenter showSearchBar={showSearchBar} />
-        <HeaderLeft toggleSearchBar={toggleSearchBar} />
+        <HeaderCenter />
+        <HeaderLeft />
       </div>
     </div>
   );
@@ -26,17 +24,16 @@ const HeaderRight = () => {
     setSidebar(!sidebar);
   };
   return (
-    <div className="px-2">
-      <label className="p-2 rounded cursor-pointer swap swap-rotate hover:bg-gray-200">
-        <input type="checkbox" onClick={toggleSidebar} />
-        <HiMenuAlt2 className="h-5 w-5 swap-off fill-current text-slate-600" />
-        <HiMenuAlt2 className="h-5 w-5 swap-on fill-current text-slate-600" />
-      </label>
+    <div
+      className="px-2 flex justify-center items-center"
+      onClick={toggleSidebar}
+    >
+      <HiMenuAlt2 className="h-5 w-5 swap-on fill-current text-slate-600" />
     </div>
   );
 };
 
-const HeaderCenter = ({ showSearchBar }) => {
+const HeaderCenter = () => {
   const [header, setHeader] = useState("");
 
   useEffect(() => {
@@ -52,21 +49,22 @@ const HeaderCenter = ({ showSearchBar }) => {
       <Link href={"/"}>
         <a className="text-xl font-semibold text-slate-600">MyExpense</a>
       </Link>
-      <input hidden={!showSearchBar} className="border" type="text" />
+      <input
+        className="w-full max-w-md ml-2 border p-1.5 transform transition duration-500 focus:outline-2 focus:outline-gray-500 outline-offset-[-2px] focus:z-10  focus-within:shadow-sm rounded-md overflow-x-auto "
+        type="text"
+        placeholder="Search..."
+      />
     </div>
   );
 };
 
-const HeaderLeft = ({ toggleSearchBar }) => {
+const HeaderLeft = ({}) => {
   return (
-    <div className="px-4">
-      <button
-        onClick={toggleSearchBar}
-        className="p-2 rounded cursor-pointer hover:bg-gray-200"
-      >
+    <div className="px-4 flex items-center">
+      <button className="p-2 rounded  flex items-center justify-center  cursor-pointer hover:bg-gray-200">
         <HiSearch className="h-5 w-5 text-slate-600" />
       </button>
-      <button className="p-2 rounded cursor-pointer hover:bg-gray-200">
+      <button className="p-2 rounded  flex items-center justify-center cursor-pointer hover:bg-gray-200">
         <HiOutlineBell className="h-5 w-5 text-slate-600" />
       </button>
     </div>

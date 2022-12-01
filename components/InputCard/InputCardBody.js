@@ -6,7 +6,7 @@ const InputCardBody = ({ amount, handleIt }) => {
     return (
       <div className="grow flex flex-col space-y-4 mt-2">
         <InputAmount amount={amount} handleChange={handleIt} />
-        {/* <InputIncomeSource /> */}
+        <InputIncomeSource />
         <Dropdown />
         <InputIncomeType />
         <InputCardNote />
@@ -106,8 +106,8 @@ const NewButton = () => {
 
 const Dropdown = () => {
   return (
-    <div className="dropdown group text-slate-500">
-      <label tabIndex="1" className="m-1">
+    <div className="dropdown group text-slate-500 bg-sky-500">
+      <label tabIndex="1" className="m-1 w-full bg-red-400">
         {"Income Sources"}
       </label>
       <ul

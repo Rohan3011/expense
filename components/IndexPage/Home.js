@@ -47,7 +47,7 @@ const InfoImages = () => {
 const InfoTextActions = () => {
   return (
     <div className="w-full flex justify-center p-2">
-      <Link passHref href="/main">
+      <Link passHref href="/dashboard">
         <button className="grow group flex items-center justify-center gap-4 text-slate-100 bg-blue-700  font-semibold p-2 max-w-[250px] rounded-lg hover:bg-blue-600 active:outline outline-blue-200 ">
           check it out
           <span className="text-xl group-hover:translate-x-1.5 duration-200">

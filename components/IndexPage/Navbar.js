@@ -47,7 +47,7 @@ const NavbarLink = ({ title, link }) => {
 const NavbarActions = () => {
   return (
     <div className="flex gap-2">
-      <Link passHref href="/">
+      <Link passHref href="/login">
         <button className="group box-border px-6 py-2 flex justify-center items-center transition-all duration-200 ease-linear rounded-md  shadow-zinc-600 hover:shadow-none bg-white text-gray-700 hover:opacity-95 active:outline border-2 border-gray-500">
           <span className="text-inherit leading-4 text-base font-semibold select-none cursor-pointer">
             Login

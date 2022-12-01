@@ -59,8 +59,8 @@ const SidebarLinks = ({ active }) => {
       <SidebarLink
         title="Dashboard"
         icon={<MdOutlineSpaceDashboard />}
-        link="/main"
-        isActive={active === "/main"}
+        link="/dashboard"
+        isActive={active === "/dashboard"}
       />
       <SidebarLink
         title="Income"
