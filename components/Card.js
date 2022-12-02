@@ -58,9 +58,9 @@ const CardBody = ({ amount }) => {
   );
 };
 
-const CardFooter = ({ icon, color, link }) => {
+const CardFooter = ({ icon, link }) => {
   return (
-    <div className="flex items-center">
+    <div className={`flex items-center`}>
       <Link passHref href={link}>
         <a className="text-slate-600 border-b border-white hover:border-slate-500 text-xs">
           see details

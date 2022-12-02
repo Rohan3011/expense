@@ -45,9 +45,11 @@ const HeaderCenter = () => {
     getHeader();
   }, [header]);
   return (
-    <div className="grow flex justify-between items-center">
+    <div className="flex grow justify-between items-center">
       <Link href={"/"}>
-        <a className="text-xl font-semibold text-slate-600">MyExpense</a>
+        <a className="hidden md:inline-block text-xl font-semibold text-slate-600">
+          MyExpense
+        </a>
       </Link>
       <input
         className="w-full max-w-md ml-2 border p-1.5 transform transition duration-500 focus:outline-2 focus:outline-gray-500 outline-offset-[-2px] focus:z-10  focus-within:shadow-sm rounded-md overflow-x-auto "

@@ -10,19 +10,17 @@ import {
   HiChevronDoubleLeft,
   HiX,
 } from "react-icons/hi";
+import { Transition } from "@headlessui/react";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { useRecoilState } from "recoil";
 import { sidebarState } from "../atoms/SidebarAtom";
 
 const Sidebar = () => {
   const router = useRouter();
-  const styleSidebar = `w-60 h-full lg:flex flex-col`;
-  console.log(router.pathname);
   return (
-    <div className={styleSidebar}>
+    <div className="w-60 h-full lg:flex flex-col">
       <SidebarHeader userName={"rohanop"} />
       <SidebarLinks active={router.pathname} />
-      {/* <SidebarRecentFollow /> */}
     </div>
   );
 };
@@ -36,20 +34,30 @@ const SidebarHeader = ({ userName }) => {
     setSidebar(!sidebar);
   };
   return (
-    <div className="group flex h-16 px-4 items-center gap-2 border-b">
-      <div className="p-2 rounded-full bg-gray-300">
-        <HiUser className="text-xl text-slate-500" />
+    <Transition
+      show={sidebar}
+      enter="transition-opacity duration-75"
+      enterFrom="opacity-0"
+      enterTo="opacity-100"
+      leave="transition-opacity duration-150"
+      leaveFrom="opacity-100"
+      leaveTo="opacity-0"
+    >
+      <div className="group flex h-16 px-4 items-center gap-2 border-b">
+        <div className="p-2 rounded-full bg-gray-300">
+          <HiUser className="text-xl text-slate-500" />
+        </div>
+        <span className="text-xl font-semibold text-slate-600">{userName}</span>
+        <div
+          className="lg:hidden group-hover:inline ml-auto p-2 rounded hover-animation"
+          onClick={toggleSidebar}
+        >
+          <label htmlFor="my-drawer-2">
+            <HiChevronDoubleLeft className="text-xl text-slate-700" />
+          </label>
+        </div>
       </div>
-      <span className="text-xl font-semibold text-slate-600">{userName}</span>
-      <div
-        className="lg:hidden group-hover:inline ml-auto p-2 rounded hover-animation"
-        onClick={toggleSidebar}
-      >
-        <label htmlFor="my-drawer-2">
-          <HiChevronDoubleLeft className="text-xl text-slate-700" />
-        </label>
-      </div>
-    </div>
+    </Transition>
   );
 };
 

@@ -14,7 +14,7 @@ export default function DashboardPage() {
       </Head>
       <Body>
         <CardList />
-        <Dashboard />
+        {/* <Dashboard /> */}
         <Table title={"Recent Transactions"} />
       </Body>
     </div>

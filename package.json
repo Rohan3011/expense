@@ -8,6 +8,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.4",
     "chart.js": "^3.7.1",
     "formik": "^2.2.9",
     "next": "^12.3.1",
