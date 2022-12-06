@@ -1,23 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { InputField } from "./shared/form";
+import { toast } from "react-toastify";
 import SignupImage from "../public/images/signup.jpg";
-import { SubmitButton } from "./shared/buttons";
+import {
+  FailedButton,
+  ProcessingButton,
+  ResetButton,
+  SubmitButton,
+  SuccessButton,
+} from "./shared/buttons";
+import { useMutation } from "react-query";
+import { postUser, registerUser } from "../services/user";
 
 const schema = Yup.object().shape({
   name: Yup.string().required().min(2, "name should be min 2 chars"),
   email: Yup.string().email().required(),
   password: Yup.string()
     .required("No password provided.")
-    .min(8, "Password is too short - should be 8 chars minimum.")
+    .min(6, "Password is too short - should be 6 chars minimum.")
     .matches(/[a-zA-Z]/, "Password can only contain Latin letters."),
-  passwordConfirmation: Yup.string().oneOf(
-    [Yup.ref("password"), null],
-    "Passwords must match"
-  ),
+  passwordConfirmation: Yup.string()
+    .required("No password provided.")
+    .oneOf(
+      [Yup.ref("password"), "No password provided"],
+      "Passwords must match"
+    ),
 });
 
 const formFields = [
@@ -35,6 +46,7 @@ const formFields = [
     name: "email",
     label: "Email",
     required: true,
+    placeholder: "example@email.com",
   },
   {
     id: "signupPassword",
@@ -42,6 +54,7 @@ const formFields = [
     name: "password",
     label: "Password",
     required: true,
+    placeholder: "Enter strong password",
   },
   {
     id: "signupPasswordConfirmation",
@@ -49,6 +62,7 @@ const formFields = [
     name: "passwordConfirmation",
     label: "Password Confirmation",
     required: true,
+    placeholder: "Re-type password",
   },
 ];
 
@@ -86,6 +100,15 @@ const SignupTitle = () => {
 };
 
 const SignupForm = () => {
+  const mutation = useMutation(postUser, {
+    onSuccess: (res) => {
+      toast.success("Successfully registered, please Login!");
+    },
+    onError: (err) => {
+      toast.error("Failed to register, please try again!");
+    },
+  });
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -94,14 +117,26 @@ const SignupForm = () => {
       passwordConfirmation: "",
     },
     validationSchema: schema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-    },
+    validateOnChange: true,
+    validateOnMount: true,
+    onSubmit: (values) => handleSubmit(values),
   });
+
+  const handleSubmit = (data) => {
+    if (!formik.isValid) {
+      console.log("fill input");
+      return;
+    }
+    try {
+      mutation.mutate(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <section className="w-full max-w-sm p-4 flex flex-col rounded-md">
-      <form onSubmit={formik.handleSubmit}>
+      <form onSubmit={formik.handleSubmit} onReset={formik.handleReset}>
         {formFields.map((val) => (
           <InputField
             key={val.id}
@@ -113,16 +148,36 @@ const SignupForm = () => {
             onBlur={formik.handleBlur}
           />
         ))}
-        <SignupAction />
+        <SignupActions
+          {...mutation}
+          handleReset={() => {
+            mutation.reset();
+            formik.handleReset();
+          }}
+        />
       </form>
     </section>
   );
 };
 
-const SignupAction = ({ onSubmit }) => {
+const SignupActions = ({ isLoading, isError, isSuccess, handleReset }) => {
+  const showDefault = !isLoading && !isError && !isSuccess;
   return (
     <section className="w-full flex justify-center pt-3">
-      <SubmitButton label="Login" />
+      {isLoading && <ProcessingButton label="Processing" />}{" "}
+      {isError && (
+        <ResetButton
+          callback={handleReset}
+          label={"Failed to register, try again!"}
+        />
+      )}
+      {isSuccess && (
+        <SuccessButton
+          callback={handleReset}
+          label={"Successfully registered, Please Login"}
+        />
+      )}
+      {showDefault && <SubmitButton label={"Login"} />}
     </section>
   );
 };

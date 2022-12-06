@@ -34,4 +34,8 @@
   .bg-my-color {
     @apply bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-blue-500 to-blue-600;
   }
+
+  .footer{
+    @apply flex justify-between px-4 md:px-8 lg:px-12 
+  }
 }

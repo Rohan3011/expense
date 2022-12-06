@@ -1,28 +1,14 @@
-import { useState } from "react";
-import { FiX } from "react-icons/fi";
-import { HiCheck, HiX } from "react-icons/hi";
+import { HiCheck, HiX, HiOutlineRefresh, HiOutlineCheck } from "react-icons/hi";
 
-export const SubmitButton = ({ label, onSubmit }) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
-  const handleSubmit = () => {
-    setIsLoading(true);
-  };
+export const SubmitButton = ({ label, disabled }) => {
   return (
-    <>
-      {isLoading ? (
-        <ProcessingButton />
-      ) : (
-        <button
-          type="submit"
-          onClick={handleSubmit}
-          className="grow bg-blue-500 text-white px-4 py-2 rounded cursor-pointer hover:bg-blue-400 active:scale-95 font-semibold leading-6 text-sm shadow transition ease-in-out duration-150"
-        >
-          {label}
-        </button>
-      )}
-    </>
+    <button
+      type="submit"
+      disabled={disabled}
+      className="grow bg-blue-500 text-white px-4 py-2 rounded cursor-pointer hover:bg-blue-400 active:scale-95 font-semibold leading-6 text-sm shadow transition ease-in-out duration-150 disabled:cursor-not-allowed"
+    >
+      {label}
+    </button>
   );
 };
 
@@ -54,21 +40,46 @@ export const ProcessingButton = () => {
   );
 };
 
-export const CompletedButton = () => {
+export const CompletedButton = (label) => {
   return (
     <button className="grow inline-flex justify-center items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded text-white bg-emerald-500 hover:bg-emerald-400 transition ease-in-out duration-150 cursor-not-allowed">
       <HiCheck className="-ml-1 mr-3 h-5 w-5 text-white" />
-      {"Completed"}
+      {label}
     </button>
   );
 };
 
-export const FailedButton = () => {
+export const FailedButton = ({ label }) => {
   return (
     <button className="grow inline-flex justify-center items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded text-white bg-red-500 hover:bg-red-400 transition ease-in-out duration-150 cursor-not-allowed">
       <HiX className="-ml-1 mr-3 h-5 w-5 text-white" />
 
-      {"Failed, Try again"}
+      {label}
+    </button>
+  );
+};
+
+export const ResetButton = ({ label, callback }) => {
+  return (
+    <button
+      onClick={callback}
+      type={"reset"}
+      className="grow inline-flex justify-center items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded text-white bg-red-500 hover:bg-red-400 transition ease-in-out duration-150"
+    >
+      <HiOutlineRefresh className="-ml-1 mr-3 h-5 w-5 text-white" />
+      {label}
+    </button>
+  );
+};
+
+export const SuccessButton = ({ label, callback }) => {
+  return (
+    <button
+      onClick={callback}
+      className="grow inline-flex justify-center items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded text-white bg-green-500 hover:bg-green-400 transition ease-in-out duration-150"
+    >
+      <HiOutlineCheck className="-ml-1 mr-3 h-5 w-5 text-white" />
+      {label}
     </button>
   );
 };
