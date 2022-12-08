@@ -3,15 +3,17 @@ import { HiMenuAlt2, HiX, HiSearch, HiOutlineBell } from "react-icons/hi";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { sidebarState } from "../atoms/SidebarAtom";
+import Alert from "./shared/Alert";
 
-const Header = () => {
+const Header = ({ alert }) => {
   return (
-    <div>
-      <div className="navbar bg-base-100 rounded h-14 flex">
+    <div className="relative">
+      <div className="navbar bg-base-100 rounded h-14 flex z-10">
         <HeaderRight />
         <HeaderCenter />
         <HeaderLeft />
       </div>
+      <div className="z-0">{alert}</div>
     </div>
   );
 };
@@ -48,11 +50,11 @@ const HeaderCenter = () => {
     <div className="flex grow justify-between items-center">
       <Link href={"/"}>
         <a className="hidden md:inline-block text-xl font-semibold text-slate-600">
-          MyExpense
+          Expense Tracker
         </a>
       </Link>
       <input
-        className="w-full max-w-md ml-2 border p-1.5 transform transition duration-500 outline focus:outline-blue-500 outline-offset-0 focus:border-blue-100 focus:z-10  focus-within:shadow-sm rounded-md overflow-x-auto "
+        className="w-full max-w-md ml-2 border p-1.5 bg-stone-50 hover:bg-white transform transition duration-500 outline focus:outline-blue-500 outline-offset-0 focus:border-blue-100 focus:z-10  focus-within:shadow-sm rounded-md overflow-x-auto "
         type="text"
         placeholder="Search..."
       />

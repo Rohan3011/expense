@@ -110,7 +110,7 @@ const SidebarLink = ({ title, icon, link, isActive }) => {
   return (
     <Link passHref href={link || ""}>
       <div
-        className={`group p-2 flex items-center cursor-pointer hover:bg-stone-200 ${
+        className={`group p-2 flex items-center cursor-pointer hover:opacity-75 ${
           isActive ? "bg-gray-300" : "bg-transparent"
         } `}
       >

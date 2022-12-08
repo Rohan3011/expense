@@ -1,4 +1,10 @@
-import { HiCheck, HiX, HiOutlineRefresh, HiOutlineCheck } from "react-icons/hi";
+import {
+  HiCheck,
+  HiX,
+  HiOutlineRefresh,
+  HiOutlineCheck,
+  HiArrowNarrowRight,
+} from "react-icons/hi";
 
 export const SubmitButton = ({ label, disabled }) => {
   return (
@@ -79,6 +85,18 @@ export const SuccessButton = ({ label, callback }) => {
       className="grow inline-flex justify-center items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded text-white bg-green-500 hover:bg-green-400 transition ease-in-out duration-150"
     >
       <HiOutlineCheck className="-ml-1 mr-3 h-5 w-5 text-white" />
+      {label}
+    </button>
+  );
+};
+
+export const RedirectButton = ({ label, callback }) => {
+  return (
+    <button
+      onClick={callback}
+      className="grow inline-flex justify-center items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded text-white bg-fuchsia-500 hover:bg-fuchsia-400 transition ease-in-out duration-150"
+    >
+      <HiOutlineSparkles className="-ml-1 mr-3 h-5 w-5 text-white" />
       {label}
     </button>
   );

@@ -6,25 +6,25 @@ import useWindowSize from "../hooks/WindowSize";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 
-const Body = ({ children }) => {
+const Body = ({ children, alert }) => {
   const [sidebar, setSidebar] = useRecoilState(sidebarState);
   const { isMobile } = useWindowSize();
 
   useEffect(() => setSidebar(!isMobile), [isMobile]);
 
   return (
-    <div className="flex w-full">
+    <div className="flex w-full h-screen bg-white">
       {isMobile ? (
         <MobileSidebar isShowing={sidebar} hide={() => setSidebar(false)} />
       ) : (
         <DesktopSidebar isShowing={sidebar} />
       )}
       <main
-        className={`grow transition-transform duration-500 ease-in-out ${
+        className={`grow h-full transition-transform duration-500 ease-in-out ${
           sidebar ? "lg:mx-6" : "lg:mx-14"
         }`}
       >
-        <Header />
+        <Header alert={alert} />
         {children}
       </main>
     </div>
