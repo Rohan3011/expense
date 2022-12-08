@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { HiMenuAlt2, HiX, HiSearch, HiOutlineBell } from "react-icons/hi";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
-import { sidebarState } from "../atoms/SidebarAtom";
+import { useSelector, useDispatch } from "react-redux";
+import { toggle } from "../redux/slices/sidebarSlice";
 import Alert from "./shared/Alert";
 
 const Header = ({ alert }) => {
@@ -21,9 +21,11 @@ const Header = ({ alert }) => {
 export default Header;
 
 const HeaderRight = () => {
-  const [sidebar, setSidebar] = useRecoilState(sidebarState);
+  const sidebar = useSelector((state) => state.sidebar.visible);
+  const dispatch = useDispatch();
+
   const toggleSidebar = () => {
-    setSidebar(!sidebar);
+    dispatch(toggle());
   };
   return (
     <div

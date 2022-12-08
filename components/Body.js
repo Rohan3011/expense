@@ -1,21 +1,26 @@
 import React, { Fragment, useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useSelector, useDispatch } from "react-redux";
+import { custom, toggle } from "../redux/slices/sidebarSlice";
 import { Transition } from "@headlessui/react";
-import { sidebarState } from "../atoms/SidebarAtom";
 import useWindowSize from "../hooks/WindowSize";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 
 const Body = ({ children, alert }) => {
-  const [sidebar, setSidebar] = useRecoilState(sidebarState);
+  const sidebar = useSelector((state) => state.sidebar.visible);
+  const dispatch = useDispatch();
+
+  const toggleSidebar = () => {
+    dispatch(toggle());
+  };
   const { isMobile } = useWindowSize();
 
-  useEffect(() => setSidebar(!isMobile), [isMobile]);
+  useEffect(() => dispatch(custom(!isMobile)), [isMobile]);
 
   return (
     <div className="flex w-full h-screen bg-white">
       {isMobile ? (
-        <MobileSidebar isShowing={sidebar} hide={() => setSidebar(false)} />
+        <MobileSidebar isShowing={sidebar} hide={dispatch(close())} />
       ) : (
         <DesktopSidebar isShowing={sidebar} />
       )}

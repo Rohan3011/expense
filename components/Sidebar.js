@@ -12,8 +12,8 @@ import {
 } from "react-icons/hi";
 import { Transition } from "@headlessui/react";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
-import { useRecoilState } from "recoil";
-import { sidebarState } from "../atoms/SidebarAtom";
+import { useSelector, useDispatch } from "react-redux";
+import { toggle } from "../redux/slices/sidebarSlice";
 
 const Sidebar = () => {
   const router = useRouter();
@@ -28,10 +28,11 @@ const Sidebar = () => {
 export default Sidebar;
 
 const SidebarHeader = ({ userName }) => {
-  const [sidebar, setSidebar] = useRecoilState(sidebarState);
+  const sidebar = useSelector((state) => state.sidebar.visible);
+  const dispatch = useDispatch();
 
   const toggleSidebar = () => {
-    setSidebar(!sidebar);
+    dispatch(toggle());
   };
   return (
     <Transition
