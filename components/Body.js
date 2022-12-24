@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { custom, toggle } from "../redux/slices/sidebarSlice";
+import { close, custom, toggle } from "../redux/slices/sidebarSlice";
 import { Transition } from "@headlessui/react";
 import useWindowSize from "../hooks/WindowSize";
 import Header from "./Header";

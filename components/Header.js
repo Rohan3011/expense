@@ -3,7 +3,6 @@ import { HiMenuAlt2, HiX, HiSearch, HiOutlineBell } from "react-icons/hi";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toggle } from "../redux/slices/sidebarSlice";
-import Alert from "./shared/Alert";
 
 const Header = ({ alert }) => {
   return (
@@ -13,7 +12,7 @@ const Header = ({ alert }) => {
         <HeaderCenter />
         <HeaderLeft />
       </div>
-      <div className="z-0">{alert}</div>
+      <div className="z-0 px-4">{alert}</div>
     </div>
   );
 };

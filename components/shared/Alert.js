@@ -16,25 +16,6 @@ function AlertContainer({ children, variant }) {
 
   const handleClose = () => setIsShowing(false);
 
-  const color =
-    variant == "danger"
-      ? "red"
-      : variant == "success"
-      ? "green"
-      : variant == "info"
-      ? "amber"
-      : variant == "default"
-      ? "blue"
-      : "grey";
-
-  console.log(color);
-
-  const styles = {
-    container: `
-    w-full h-12 p-4 flex items-center bg-${color}-100 text-${color}-500 border-2 rounded border-${color}-300`,
-    close: `ml-auto rounded p-1 hover:bg-${color}-200 text-gray-500`,
-  };
-
   return (
     <Transition
       show={isShowing}
@@ -45,10 +26,16 @@ function AlertContainer({ children, variant }) {
       leaveFrom="opacity-100"
       leaveTo="opacity-0"
     >
-      <div className={styles.container}>
+      <div
+        className={`${variant ?? "bg-gray-100 text-gray-500 border-gray-300"} 
+ w-full h-12 p-4 flex items-center border-2 rounded`}
+      >
         {children}
-        <button onClick={handleClose} className={styles.close}>
-          <HiX />
+        <button
+          onClick={handleClose}
+          className={`group ml-auto rounded p-1 transition-all duration-200 hover:opacity-80 text-gray-500`}
+        >
+          <HiX className="group-hover:scale-110" />
         </button>
       </div>
     </Transition>

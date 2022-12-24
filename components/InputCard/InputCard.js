@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import { HiDotsHorizontal, HiOutlineCollection } from "react-icons/hi";
 import { InputField, TextAreaField } from "../shared/form";
+import { MultiSelect, Textarea, TextInput } from "@mantine/core";
 
 const schema = Yup.object().shape({
   amount: Yup.number().positive().required(),
@@ -11,6 +12,15 @@ const schema = Yup.object().shape({
   tags: Yup.array().of(Yup.string()).required(),
   note: Yup.string().max(5000).optional().default("Credited"),
 });
+const data = [
+  { value: "react", label: "React" },
+  { value: "ng", label: "Angular" },
+  { value: "svelte", label: "Svelte" },
+  { value: "vue", label: "Vue" },
+  { value: "riot", label: "Riot" },
+  { value: "next", label: "Next.js" },
+  { value: "blitz", label: "Blitz.js" },
+];
 
 const InputCard = () => {
   return (
@@ -49,6 +59,7 @@ const IncomeForm = () => {
       note: "",
     },
     validationSchema: schema,
+    validateOnChange: true,
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
     },
@@ -56,7 +67,7 @@ const IncomeForm = () => {
 
   return (
     <form onSubmit={formik.handleSubmit} onReset={formik.handleReset}>
-      <InputField
+      <TextInput
         id="incomeAmount"
         type="number"
         name="amount"
@@ -69,7 +80,7 @@ const IncomeForm = () => {
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
       />
-      <InputField
+      <TextInput
         id="incomeDate"
         type="date"
         name="date"
@@ -82,7 +93,20 @@ const IncomeForm = () => {
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
       />
-      <TextAreaField
+
+      <MultiSelect
+        id="incomeTags"
+        name="tags"
+        required
+        data={data}
+        label="Your favorite frameworks/libraries"
+        placeholder="Pick all that you like"
+      />
+
+      <Textarea
+        autosize
+        minRows={2}
+        maxRows={4}
         id="incomeNote"
         name="note"
         label="Note"
