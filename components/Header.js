@@ -20,7 +20,6 @@ const Header = ({ alert }) => {
 export default Header;
 
 const HeaderRight = () => {
-  const sidebar = useSelector((state) => state.sidebar.visible);
   const dispatch = useDispatch();
 
   const toggleSidebar = () => {

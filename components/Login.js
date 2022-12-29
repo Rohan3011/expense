@@ -5,6 +5,10 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import { InputField } from "./shared/form";
 import LoginImage from "../public/images/signup.jpg";
+import { useLoginMutation } from "../redux/api/authApiSlice";
+import { setCredentials } from "../redux/slices/authSlice";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
 
 const schema = Yup.object().shape({
   email: Yup.string().email().required(),
@@ -64,33 +68,54 @@ const LoginTitle = () => {
 };
 
 const LoginForm = () => {
+  const [login, { isLoading }] = useLoginMutation();
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const handleSubmit = async (data) => {
+    if (!formik.isValid) {
+      console.log("Something went wrong!");
+      return;
+    }
+    try {
+      const userData = await login(data).unwrap();
+      dispatch(setCredentials({ tokens: userData }));
+      formik.handleReset();
+      router.push("/dashboard");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
     validationSchema: schema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-    },
+    onSubmit: handleSubmit,
   });
 
   return (
     <section className="w-full max-w-sm p-4 flex flex-col rounded-md">
-      <form onSubmit={formik.handleSubmit}>
-        {formFields.map((val) => (
-          <InputField
-            key={val.id}
-            {...val}
-            value={formik.values[val.name]}
-            touched={formik.touched[val.name]}
-            error={formik.errors[val.name]}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-        ))}
-        <LoginAction />
-      </form>
+      {isLoading ? (
+        <h1>loading</h1>
+      ) : (
+        <form onSubmit={formik.handleSubmit}>
+          {formFields.map((val) => (
+            <InputField
+              key={val.id}
+              {...val}
+              value={formik.values[val.name]}
+              touched={formik.touched[val.name]}
+              error={formik.errors[val.name]}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+          ))}
+          <LoginAction />
+        </form>
+      )}
     </section>
   );
 };

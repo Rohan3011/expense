@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import * as Yup from "yup";
@@ -7,14 +7,15 @@ import { InputField } from "./shared/form";
 import { toast } from "react-toastify";
 import SignupImage from "../public/images/signup.jpg";
 import {
-  FailedButton,
   ProcessingButton,
   ResetButton,
   SubmitButton,
   SuccessButton,
 } from "./shared/buttons";
-import { useMutation } from "react-query";
-import { postUser, registerUser } from "../services/user";
+import { useSignupMutation } from "../redux/api/userApiSlice";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+import { setUser } from "../redux/slices/authSlice";
 
 const schema = Yup.object().shape({
   name: Yup.string().required().min(2, "name should be min 2 chars"),
@@ -100,14 +101,9 @@ const SignupTitle = () => {
 };
 
 const SignupForm = () => {
-  const mutation = useMutation(postUser, {
-    onSuccess: (res) => {
-      toast.success("Successfully registered, please Login!");
-    },
-    onError: (err) => {
-      toast.error("Failed to register, please try again!");
-    },
-  });
+  const [signup, mutation] = useSignupMutation();
+  const dispatch = useDispatch();
+  const router = useRouter();
 
   const formik = useFormik({
     initialValues: {
@@ -122,14 +118,22 @@ const SignupForm = () => {
     onSubmit: (values) => handleSubmit(values),
   });
 
-  const handleSubmit = (data) => {
+  const handleSubmit = async (data) => {
     if (!formik.isValid) {
-      console.log("fill input");
+      console.log("Something went wrong ❌");
       return;
     }
     try {
-      mutation.mutate(data);
+      const userData = await signup(data).unwrap();
+      dispatch(setUser({ user: userData }));
+      formik.handleReset();
+      router.push("/login");
     } catch (err) {
+      if (err?.data) {
+        toast.error(err.data);
+      } else {
+        toast.error("Failed to register, please try again!");
+      }
       console.error(err);
     }
   };
@@ -164,7 +168,7 @@ const SignupActions = ({ isLoading, isError, isSuccess, handleReset }) => {
   const showDefault = !isLoading && !isError && !isSuccess;
   return (
     <section className="w-full flex justify-center pt-3">
-      {isLoading && <ProcessingButton label="Processing" />}{" "}
+      {isLoading && <ProcessingButton label="Processing" />}
       {isError && (
         <ResetButton
           callback={handleReset}

@@ -14,41 +14,28 @@ import { Transition } from "@headlessui/react";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
 import { toggle } from "../redux/slices/sidebarSlice";
+import { selectCurrentUser } from "../redux/slices/authSlice";
+import { useProfileQuery } from "../redux/api/userApiSlice";
+import { useEffect } from "react";
 
 const Sidebar = () => {
-  const router = useRouter();
-  return (
-    <div className="w-60 h-full lg:flex flex-col">
-      <SidebarHeader userName={"rohanop"} />
-      <SidebarLinks active={router.pathname} />
-    </div>
-  );
-};
-
-export default Sidebar;
-
-const SidebarHeader = ({ userName }) => {
-  const sidebar = useSelector((state) => state.sidebar.visible);
+  const { data: user, error, isLoading } = useProfileQuery();
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const toggleSidebar = () => {
     dispatch(toggle());
   };
+
   return (
-    <Transition
-      show={sidebar}
-      enter="transition-opacity duration-75"
-      enterFrom="opacity-0"
-      enterTo="opacity-100"
-      leave="transition-opacity duration-150"
-      leaveFrom="opacity-100"
-      leaveTo="opacity-0"
-    >
+    <div className="w-60 h-full lg:flex flex-col">
       <div className="group flex h-16 px-4 items-center gap-2 border-b">
         <div className="p-2 rounded-full bg-gray-300">
           <HiUser className="text-xl text-slate-500" />
         </div>
-        <span className="text-xl font-semibold text-slate-600">{userName}</span>
+        <span className="text-xl font-semibold text-slate-600 max-w-fit truncate">
+          {`${user?.firstName} ${user?.lastName}`}
+        </span>
         <div
           className="lg:hidden group-hover:inline ml-auto p-2 rounded hover-animation"
           onClick={toggleSidebar}
@@ -58,9 +45,44 @@ const SidebarHeader = ({ userName }) => {
           </label>
         </div>
       </div>
-    </Transition>
+      <SidebarLinks active={router.pathname} />
+    </div>
   );
 };
+
+export default Sidebar;
+
+// const SidebarHeader = ({ userName }) => {
+
+//   return (
+//     <Transition
+//       show={sidebar}
+//       enter="transition-opacity duration-75"
+//       enterFrom="opacity-0"
+//       enterTo="opacity-100"
+//       leave="transition-opacity duration-150"
+//       leaveFrom="opacity-100"
+//       leaveTo="opacity-0"
+//     >
+//       <div className="group flex h-16 px-4 items-center gap-2 border-b">
+//         <div className="p-2 rounded-full bg-gray-300">
+//           <HiUser className="text-xl text-slate-500" />
+//         </div>
+//         <span className="text-xl font-semibold text-slate-600 max-w-fit truncate">
+//           {userName}
+//         </span>
+//         <div
+//           className="lg:hidden group-hover:inline ml-auto p-2 rounded hover-animation"
+//           onClick={toggleSidebar}
+//         >
+//           <label htmlFor="my-drawer-2">
+//             <HiChevronDoubleLeft className="text-xl text-slate-700" />
+//           </label>
+//         </div>
+//       </div>
+//     </Transition>
+//   );
+// };
 
 const SidebarLinks = ({ active }) => {
   return (
