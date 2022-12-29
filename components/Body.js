@@ -10,12 +10,9 @@ const Body = ({ children, alert }) => {
   const sidebar = useSelector((state) => state.sidebar.visible);
   const dispatch = useDispatch();
 
-  const toggleSidebar = () => {
-    dispatch(toggle());
-  };
-  const { isMobile } = useWindowSize();
+  const { isMobile } = false;
 
-  useEffect(() => dispatch(custom(!isMobile)), [isMobile]);
+  // useEffect(() => dispatch(custom(!isMobile)), [isMobile]);
 
   return (
     <div className="flex w-full h-screen bg-white">
