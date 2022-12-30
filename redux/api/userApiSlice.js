@@ -14,6 +14,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
         url: "/api/users/me",
         method: "GET",
       }),
+      providesTags: ["Profile"],
     }),
   }),
 });

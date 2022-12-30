@@ -14,7 +14,7 @@ const baseQuery = fetchBaseQuery({
 });
 
 /**
- * If session expires then, get new `access-token` using the `refresh-token`
+ * If session expires then, gets new `access-token` using the `refresh-token`
  */
 const baseQueryWithReauth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
