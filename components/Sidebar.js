@@ -22,7 +22,6 @@ const Sidebar = () => {
   const { data: user, error, isLoading } = useProfileQuery();
   const dispatch = useDispatch();
   const router = useRouter();
-
   const toggleSidebar = () => {
     dispatch(toggle());
   };
@@ -34,7 +33,7 @@ const Sidebar = () => {
           <HiUser className="text-xl text-slate-500" />
         </div>
         <span className="text-xl font-semibold text-slate-600 max-w-fit truncate">
-          {`${user?.firstName} ${user?.lastName}`}
+          {user?.name}
         </span>
         <div
           className="lg:hidden group-hover:inline ml-auto p-2 rounded hover-animation"
